@@ -20,7 +20,6 @@
     </style>
   </head>
   <body>
-    <!-- Indicador visual para guiar al usuario -->
     <div id="ar-instructions">Apunta tu cámara al target</div>
 
     <a-scene mindar-image="imageTargetSrc: ./targets.mind" 
@@ -28,42 +27,30 @@
              device-orientation-permission-ui="enabled: false">
 
       <a-assets>
-        <a-asset-item id="model1" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/piedra.glb"></a-asset-item>
         <a-asset-item id="model2" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/cubo.glb"></a-asset-item>
         <a-asset-item id="model3" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/cono.glb"></a-asset-item>
       </a-assets>
 
-      <!-- Cámara con cursor/raycaster para detectar taps -->
+      <!-- Cámara con cursor para touch -->
       <a-camera position="0 0 0" look-controls="enabled: false">
         <a-cursor rayOrigin="mouse" fuse="false"></a-cursor>
       </a-camera>
 
-      <!-- Target 1: alterna entre model1 y model2 -->
+      <!-- Target 0: inicia con cubo -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model id="model1-main" src="#model1" scale="0.2 0.2 0.2" visible="true"
-                      animation="property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear">
-        </a-gltf-model>
-        <a-gltf-model id="model1-alt" src="#model2" scale="0.2 0.2 0.2" visible="false"
-                      animation="property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear">
-        </a-gltf-model>
+        <a-gltf-model id="target0-main" src="#model2" scale="0.5 0.5 0.5" visible="true"></a-gltf-model>
+        <a-gltf-model id="target0-alt"  src="#model3" scale="0.03 0.03 0.03" visible="false"></a-gltf-model>
       </a-entity>
 
-      <!-- Target 2: muestra model2 (puedes alternar con otro si quieres) -->
+      <!-- Target 1: inicia con cono -->
       <a-entity mindar-image-target="targetIndex: 1">
-        <a-gltf-model id="model2-main" src="#model2" scale="0.2 0.2 0.2" visible="true"></a-gltf-model>
-        <a-gltf-model id="model2-alt" src="#model3" scale="0.2 0.2 0.2" visible="false"></a-gltf-model>
-      </a-entity>
-
-      <!-- Target 3: muestra model3 -->
-      <a-entity mindar-image-target="targetIndex: 2">
-        <a-gltf-model id="model3-main" src="#model3" scale="0.2 0.2 0.2" visible="true"></a-gltf-model>
-        <a-gltf-model id="model3-alt" src="#model1" scale="0.2 0.2 0.2" visible="false"></a-gltf-model>
+        <a-gltf-model id="target1-main" src="#model3" scale="0.03 0.03 0.03" visible="true"></a-gltf-model>
+        <a-gltf-model id="target1-alt"  src="#model2" scale="0.5 0.5 0.5" visible="false"></a-gltf-model>
       </a-entity>
 
     </a-scene>
 
     <script>
-      // Indicadores visuales al detectar target
       const sceneEl = document.querySelector("a-scene");
       sceneEl.addEventListener("targetFound", () => {
         document.getElementById("ar-instructions").innerText = "¡Target detectado!";
@@ -72,7 +59,6 @@
         document.getElementById("ar-instructions").innerText = "Apunta tu cámara al target";
       });
 
-      // Función para alternar visibilidad entre dos modelos
       function setupToggleModels(mainId, altId) {
         const main = document.getElementById(mainId);
         const alt = document.getElementById(altId);
@@ -91,10 +77,9 @@
         });
       }
 
-      // Configurar interacción para cada target
-      setupToggleModels("model1-main", "model1-alt");
-      setupToggleModels("model2-main", "model2-alt");
-      setupToggleModels("model3-main", "model3-alt");
+      // Configurar interacción: cada target alterna al otro modelo
+      setupToggleModels("target0-main", "target0-alt"); // Target 0: cubo ↔ cono
+      setupToggleModels("target1-main", "target1-alt"); // Target 1: cono ↔ cubo
     </script>
   </body>
 </html>
