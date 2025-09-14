@@ -36,13 +36,13 @@
         <a-cursor rayOrigin="mouse" fuse="false"></a-cursor>
       </a-camera>
 
-      <!-- Target 0: inicia con cubo -->
+      <!-- TargetIndex 0: inicia con cubo, alterna al cono -->
       <a-entity mindar-image-target="targetIndex: 0">
         <a-gltf-model id="target0-main" src="#model2" scale="0.5 0.5 0.5" visible="true"></a-gltf-model>
         <a-gltf-model id="target0-alt"  src="#model3" scale="0.03 0.03 0.03" visible="false"></a-gltf-model>
       </a-entity>
 
-      <!-- Target 1: inicia con cono -->
+      <!-- TargetIndex 1: inicia con cono, alterna al cubo -->
       <a-entity mindar-image-target="targetIndex: 1">
         <a-gltf-model id="target1-main" src="#model3" scale="0.03 0.03 0.03" visible="true"></a-gltf-model>
         <a-gltf-model id="target1-alt"  src="#model2" scale="0.5 0.5 0.5" visible="false"></a-gltf-model>
@@ -51,6 +51,7 @@
     </a-scene>
 
     <script>
+      // Indicadores visuales para ambos targets
       const sceneEl = document.querySelector("a-scene");
       sceneEl.addEventListener("targetFound", () => {
         document.getElementById("ar-instructions").innerText = "¡Target detectado!";
@@ -59,6 +60,7 @@
         document.getElementById("ar-instructions").innerText = "Apunta tu cámara al target";
       });
 
+      // Función para alternar visibilidad de dos modelos de un target
       function setupToggleModels(mainId, altId) {
         const main = document.getElementById(mainId);
         const alt = document.getElementById(altId);
@@ -77,7 +79,7 @@
         });
       }
 
-      // Configurar interacción: cada target alterna al otro modelo
+      // Configurar alternancia para cada target de manera independiente
       setupToggleModels("target0-main", "target0-alt"); // Target 0: cubo ↔ cono
       setupToggleModels("target1-main", "target1-alt"); // Target 1: cono ↔ cubo
     </script>
