@@ -26,14 +26,17 @@
     <a-scene mindar-image="imageTargetSrc: ./targets.mind" 
              vr-mode-ui="enabled: false" 
              device-orientation-permission-ui="enabled: false">
-      
+
       <a-assets>
         <a-asset-item id="model1" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/piedra.glb"></a-asset-item>
         <a-asset-item id="model2" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/cubo.glb"></a-asset-item>
         <a-asset-item id="model3" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/cono.glb"></a-asset-item>
       </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <!-- Cámara con cursor/raycaster para detectar taps -->
+      <a-camera position="0 0 0" look-controls="enabled: false">
+        <a-cursor rayOrigin="mouse" fuse="false"></a-cursor>
+      </a-camera>
 
       <!-- Target 1 -->
       <a-entity mindar-image-target="targetIndex: 0">
@@ -65,7 +68,7 @@
         document.getElementById("ar-instructions").innerText = "Apunta tu cámara al target";
       });
 
-      // Interactividad: cambiar de modelo al hacer clic
+      // Interactividad: cambiar de modelo al hacer clic en cada uno
       function setupClickableModel(modelId, altModelSrc) {
         const model = document.getElementById(modelId);
         let toggled = false;
@@ -75,7 +78,7 @@
         });
       }
 
-      // Cambiar modelo al hacer clic en cada target
+      // Configurar la interacción en cada modelo
       setupClickableModel("clickable-model1", "#model2");
       setupClickableModel("clickable-model2", "#model3");
       setupClickableModel("clickable-model3", "#model1");
