@@ -31,7 +31,7 @@
         <a-asset-item id="model3" src="https://raw.githubusercontent.com/vanelg1505/actividad-6/main/cono.glb"></a-asset-item>
       </a-assets>
 
-      <!-- Cámara con cursor para touch -->
+      <!--Cámara con cursor para touch -->
       <a-camera position="0 0 0" look-controls="enabled: false">
         <a-cursor rayOrigin="mouse" fuse="false"></a-cursor>
       </a-camera>
@@ -51,7 +51,7 @@
     </a-scene>
 
     <script>
-      // Indicadores visuales para ambos targets
+      // Indicadores visuales en texto  para ambos targets
       const sceneEl = document.querySelector("a-scene");
       sceneEl.addEventListener("targetFound", () => {
         document.getElementById("ar-instructions").innerText = "¡Target detectado!";
@@ -79,9 +79,9 @@
         });
       }
 
-      // Configurar alternancia para cada target de manera independiente
-      setupToggleModels("target0-main", "target0-alt"); // Target 0: cubo ↔ cono
-      setupToggleModels("target1-main", "target1-alt"); // Target 1: cono ↔ cubo
+      // alternancia para cada target de manera independiente
+      setupToggleModels("target0-main", "target0-alt"); // Target 0: cubo a cono
+      setupToggleModels("target1-main", "target1-alt"); // Target 1: cono a cubo
     </script>
   </body>
 </html>
